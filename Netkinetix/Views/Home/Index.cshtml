@@ -1,14 +1,69 @@
 ﻿@{
     ViewBag.Title = "Events Administration";
 }
+@model IEnumerable<Netkinetix.Models.SiteEvent>
+
 
 <div class="container">
     <div class="row">
         <form method="post">
             <div>
                 <label>Event Title Contains</label>
-                <input type="text" />
+                <input type="text" id="title" name="title" />
             </div>
+            <div>
+                <label>Start Date</label>
+                <input type="date" id="startDate" name="startDate" />
+            </div>
+            <div>
+                <label>End Date</label>
+                <input type="date" id="EndDate" name="endDate" />
+            </div>
+            <div>
+                <label>Location</label>
+                <input type="text" id="location" name="location" />
+            </div>
+            <div>
+                <label>Description</label>
+                <input type="text" id="description" name="description" />
+            </div>
+            <div>
+                <label>URL</label>
+                <input type="text" id="url" name="url" />
+            </div>
+            <div>
+                <label>Active</label>
+                <input type="text" id="active" name="active" />
+            </div>
+            <button type="submit">Submit</button>
         </form>
+        <p>
+            @if (ViewBag.Submitted != null && ViewBag.Submitted)
+        {
+            // If the form was submitted
+            @ViewBag.Message
+    }
+        </p>
+    </div>
+    <div class="row">
+        <table>
+            <thead>
+                <tr>Event Title</tr>
+                <tr>Event Start Date</tr>
+                <tr>Event Description</tr>
+            </thead>
+            @if (Model != null && Model.Count() > 0)
+            {
+                foreach (var x in Model)
+                {
+                    // Create the list of these clients
+                    <tr>
+                        <td>@x.SeTitle</td>
+                        <td>@x.SeStartDate</td>
+                        <td>@x.SeDescription</td>
+                    </tr>
+                }
+            }
+        </table>
     </div>
 </div>
