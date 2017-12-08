@@ -23,12 +23,8 @@ namespace Netkinetix.Controllers
         [HttpPost]
         public ActionResult Index(string data)
         {
-            var created = false;
-            ViewBag.Submitted = false;
-
             if (HttpContext.Request.RequestType == "POST")
             {
-                ViewBag.Submitted = true;
                 // Sets values to variables that has come back from the form
                 var seTitle = Request.Form["title"];
                 var seStartDate = Request.Form["startDate"];
@@ -38,7 +34,7 @@ namespace Netkinetix.Controllers
                 var seURL = Request.Form["url"];
                 var seActive = Request.Form["active"];
 
-                // Sets model properties with variables set above
+                // Create new site event and add to db
                 var a = db.SiteEvent.Add(new SiteEvent
                 {
                     SeTitle = seTitle,
@@ -51,16 +47,6 @@ namespace Netkinetix.Controllers
                 });
                 // Save 
                 db.SaveChanges();
-                created = true;
-            }
-            // 
-            if (created)
-            {
-                ViewBag.Message = "Event was created successfully.";
-            }
-            else
-            {
-                ViewBag.Message = "There was an error while creating the event.";
             }
             return View(db.SiteEvent.ToList());
 
