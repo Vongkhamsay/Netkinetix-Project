@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+@model Netkinetix.Models.SiteEvent
+
+<div class="container">
+    @if (Model != null)
+    {
+        <form method="post" action="~/Edit/Edit">
+            <input type="text" id="id" name="id" value="@Model.SeId" hidden/>
+            <div class="form-group">
+                <label>Event Title*</label>
+                <input type="text" id="title" name="title" class="form-control" value="@Model.SeTitle" required />
+            </div>
+            <div class="form-group">
+                <label>Start Date*</label>
+                <input type="date" id="startDate" name="startDate" class="form-control" value="@Model.SeStartDate.ToString(@"yyyy-MM-dd")" required />
+            </div>
+            <div class="form-group">
+                <label>End Date</label>
+                <input type="date" id="EndDate" name="endDate" class="form-control" value="@Model.SeEndDate.ToString(@"yyyy-MM-dd")" />
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" id="location" name="location" class="form-control" value="@Model.SeLocation" />
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="description" name="description" class="form-control"> @Model.SeDescription</textarea>
+            </div>
+            <div class="form-group">
+                <label>URL</label>
+                <input type="text" id="url" name="url" class="form-control" value="@Model.SeURL" />
+            </div>
+            <div class="form-group">
+                @if (Model.SeActive == true)
+                {
+                    <input type="checkbox" id="active" name="active" checked /> <label>Hide Event</label>
+                }
+                else
+                {
+                    <input type="checkbox" id="active" name="active" /> <label>Hide Event</label>
+                }
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-info btn-lg">Save</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div>
+            No Data...
+        </div>
+    }
+</div>

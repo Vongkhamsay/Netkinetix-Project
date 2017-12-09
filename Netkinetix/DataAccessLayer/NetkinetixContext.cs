@@ -16,6 +16,7 @@ namespace Netkinetix.DataAccessLayer
             }
 
             // Entity framework uses this as a reflection to help return the model back
+            // Basically connects to DB
             public DbSet<SiteEvent> SiteEvent { get; set; }
 
             protected override void OnModelCreating(DbModelBuilder modelBuilder)

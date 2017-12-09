@@ -2,8 +2,6 @@
     ViewBag.Title = "Events Administration";
 }
 @model IEnumerable<Netkinetix.Models.SiteEvent>
-
-
 <div class="container">
     <!-- Trigger the modal with a button -->
     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Event</button>
@@ -45,10 +43,11 @@
                             <input type="text" id="url" name="url" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" id="active" name="active"/> <label>Hide Event</label>
+                            <input type="checkbox" id="active" name="active" /> <label>Hide Event</label>
                         </div>
 
                         <div class="modal-footer">
+                            <button type="button" onclick="window.location.reload()">Cancel</button>
                             <button type="submit" class="btn btn-info btn-lg">Submit</button>
                         </div>
                     </form>
@@ -57,12 +56,34 @@
 
         </div>
     </div>
+    <div>
+        Events Administration
+        <form method="get" >
+            <input type="text" name="search" id="search" value="search" hidden />
+        <div>
+            <label>Event Title Contains:</label>
+            <input type="text" name="searchTitle" id="searchTitle" />
+        </div>
+        <div>
+            <label>Start Date After</label>
+            <input type="date" name="searchDateAfter" id="searchDateAfter"/>
+        </div>
+        <div>
+            <label>Start Date Before</label>
+            <input type="date" name="searchDateBefore" id="searchDateBefore" />
+        </div>
+            <div>
+                <button>Search Events</button>
+            </div>
+            </form>
+    </div>
     <div class="row">
         <table>
             <thead>
-                <tr>Event Title</tr>
+                <tr>Event Title <input  type="text"/></tr>
                 <tr>Event Start Date</tr>
                 <tr>Event Description</tr>
+                <tr>Action</tr>
             </thead>
             @if (Model != null && Model.Count() > 0)
             {
@@ -73,9 +94,18 @@
                         <td>@x.SeTitle</td>
                         <td>@x.SeStartDate</td>
                         <td>@x.SeDescription</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id =x.SeId})
+                        </td>
                     </tr>
                 }
             }
         </table>
     </div>
 </div>
+<script type="text/javascript">
+    function clear() {
+        alert(1);
+    }
+</script>
+
