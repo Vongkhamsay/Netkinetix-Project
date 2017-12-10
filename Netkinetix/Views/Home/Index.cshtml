@@ -3,8 +3,6 @@
 }
 @model IEnumerable<Netkinetix.Models.SiteEvent>
 <div class="container">
-    <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Event</button>
 
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
@@ -27,8 +25,8 @@
                             <input type="date" id="startDate" name="startDate" class="form-control" required />
                         </div>
                         <div class="form-group">
-                            <label>End Date</label>
-                            <input type="date" id="EndDate" name="endDate" class="form-control" />
+                            <label>End Date*</label>
+                            <input type="date" id="EndDate" name="endDate" class="form-control" required/>
                         </div>
                         <div class="form-group">
                             <label>Location</label>
@@ -47,8 +45,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" onclick="window.location.reload()">Cancel</button>
-                            <button type="submit" class="btn btn-info btn-lg">Submit</button>
+                            <button type="button" class="btn" onclick="window.location.reload()">Cancel</button>
+                            <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -57,50 +55,58 @@
         </div>
     </div>
     <div>
-        Events Administration
-        <form method="get" >
+        <div>
+            <h1>
+                Events Administration            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Add Event</button>
+            </h1> <!-- Trigger the modal with a button -->
+        </div>
+        <form method="get">
             <input type="text" name="search" id="search" value="search" hidden />
-        <div>
-            <label>Event Title Contains:</label>
-            <input type="text" name="searchTitle" id="searchTitle" />
-        </div>
-        <div>
-            <label>Start Date After</label>
-            <input type="date" name="searchDateAfter" id="searchDateAfter"/>
-        </div>
-        <div>
-            <label>Start Date Before</label>
-            <input type="date" name="searchDateBefore" id="searchDateBefore" />
-        </div>
-            <div>
-                <button>Search Events</button>
+            <div class="form-group">
+                <label>Event Title Contains:</label>
+                <input class="form-control" type="text" name="searchTitle" id="searchTitle" />
             </div>
-            </form>
+            <div class="form-group">
+                <label>Start Date After</label>
+                <input class="form-control" type="date" name="searchDateAfter" id="searchDateAfter" />
+            </div>
+            <div class="form-group">
+                <label>Start Date Before</label>
+                <input class="form-control" type="date" name="searchDateBefore" id="searchDateBefore" />
+            </div>
+            <div>
+                <button class="btn btn-info">Search Events</button>
+            </div>
+        </form>
     </div>
     <div class="row">
-        <table>
-            <thead>
-                <tr>Event Title <input  type="text"/></tr>
-                <tr>Event Start Date</tr>
-                <tr>Event Description</tr>
-                <tr>Action</tr>
-            </thead>
-            @if (Model != null && Model.Count() > 0)
-            {
-                foreach (var x in Model)
-                {
-                    // Create the list of these clients
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@x.SeTitle</td>
-                        <td>@x.SeStartDate</td>
-                        <td>@x.SeDescription</td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id =x.SeId})
-                        </td>
+                        <th>Event Title</th>
+                        <th>Event Start Date</th>
+                        <th>Event Description</th>
+                        <th>Action</th>
                     </tr>
+                </thead>
+                @if (Model != null && Model.Count() > 0)
+                {
+                    foreach (var x in Model)
+                    {
+                        // Create the list of these clients
+                        <tr>
+                            <td>@x.SeTitle</td>
+                            <td>@x.SeStartDate.ToShortDateString()</td>
+                            <td>@x.SeDescription</td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = x.SeId })
+                            </td>
+                        </tr>
+                    }
                 }
-            }
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
