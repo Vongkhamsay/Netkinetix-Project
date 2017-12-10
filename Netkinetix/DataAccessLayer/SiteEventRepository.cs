@@ -17,22 +17,13 @@ namespace Netkinetix.DataAccessLayer
     public class SiteEventRepository
 
     {
-
         private NetkinetixContext db = new NetkinetixContext();
-
-
 
         public void Create(SiteEvent siteEvent)
 
         {
-
             db.SiteEvent.Add(siteEvent);
-
-
-
         }
-
-
 
         public IEnumerable<SiteEvent> GetAll()
 
@@ -62,20 +53,6 @@ namespace Netkinetix.DataAccessLayer
 
         }
 
-
-
-        public void Delete(int seId)
-
-        {
-
-            var deleteSiteEvent = db.SiteEvent.Find(seId);
-
-            db.Entry(deleteSiteEvent).State = EntityState.Deleted;
-
-        }
-
-
-
         public void Save()
 
         {
@@ -83,46 +60,5 @@ namespace Netkinetix.DataAccessLayer
             db.SaveChanges();
 
         }
-
-
-
-        private bool disposed = false;
-
-
-
-        protected virtual void Dispose(bool disposing)
-
-        {
-
-            if (!this.disposed)
-
-            {
-
-                if (disposing)
-
-                {
-
-                    db.Dispose();
-
-                }
-
-            }
-
-            this.disposed = true;
-
-        }
-
-
-
-        public void Dispose()
-
-        {
-
-            Dispose(true);
-
-            GC.SuppressFinalize(this);
-
-        }
-
     }
 }
